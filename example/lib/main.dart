@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,6 +44,7 @@ class _HomeState extends State<Home> {
         },
       ),
       bottomNavigationBar: BottomBar(
+        height: kBottomNavigationBarHeight + 30,
         textStyle: TextStyle(fontWeight: FontWeight.bold),
         selectedIndex: _currentPage,
         onTap: (int index) {
@@ -74,6 +75,12 @@ class _HomeState extends State<Home> {
             activeColor: Colors.orange,
             activeIconColor: Colors.orange.shade600,
             activeTitleColor: Colors.orange.shade700,
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+            activeColor: Colors.blue,
+            activeTitleColor: Colors.blue.shade600,
           ),
         ],
       ),
