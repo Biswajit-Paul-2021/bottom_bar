@@ -15,6 +15,7 @@ class BottomBar extends StatelessWidget {
     this.curve = Curves.easeOutQuint,
     this.duration = const Duration(milliseconds: 750),
     this.height,
+    this.iconSize = 24,
     this.padding = const EdgeInsets.all(10),
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
     this.backgroundColor,
@@ -68,55 +69,57 @@ class BottomBar extends StatelessWidget {
   /// `TextStyle` of title
   final TextStyle textStyle;
 
+  /// `size` of Icon.
+  final double iconSize;
+
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     return Container(
+      padding: padding,
       height: height?.toDouble(),
       decoration: BoxDecoration(color: backgroundColor),
-      child: Padding(
-        padding: padding,
-        child: Row(
-          mainAxisAlignment: mainAxisAlignment,
-          children: List.generate(
-            items.length,
-            (int index) {
-              final bottomBarItem = items.elementAt(index);
-              final backgroundColor = bottomBarItem.activeColor
-                  .withOpacity(bottomBarItem.backgroundColorOpacity.toDouble());
+      child: Row(
+        mainAxisAlignment: mainAxisAlignment,
+        children: List.generate(
+          items.length,
+          (int index) {
+            final bottomBarItem = items.elementAt(index);
+            final backgroundColor = bottomBarItem.activeColor
+                .withOpacity(bottomBarItem.backgroundColorOpacity.toDouble());
 
-              final Color activeIconColor =
-                  bottomBarItem.activeIconColor ?? bottomBarItem.activeColor;
-              final Color activeTitleColor =
-                  bottomBarItem.activeTitleColor ?? bottomBarItem.activeColor;
+            final Color activeIconColor =
+                bottomBarItem.activeIconColor ?? bottomBarItem.activeColor;
+            final Color activeTitleColor =
+                bottomBarItem.activeTitleColor ?? bottomBarItem.activeColor;
 
-              final inactiveColor = items[index].inactiveColor ??
-                  (brightness == Brightness.light
-                      ? Color.fromARGB(255, 80, 80, 80)
-                      : const Color(0xF2FFFFFF));
+            final inactiveColor = items[index].inactiveColor ??
+                (brightness == Brightness.light
+                    ? Color.fromARGB(255, 80, 80, 80)
+                    : const Color(0xF2FFFFFF));
 
-              return _BottomBarItemWidget(
-                index: index,
-                key: items.elementAt(index).key,
-                isSelected: index == selectedIndex,
-                activeBackgroundColor: backgroundColor,
-                activeIconColor: activeIconColor,
-                activeTitleColor: activeTitleColor,
-                showActiveBackgroundColor: showActiveBackgroundColor,
-                border: border,
-                inactiveColor: inactiveColor,
-                rightPadding: itemPadding.right,
-                curve: curve,
-                duration: duration,
-                itemPadding: itemPadding,
-                textStyle: textStyle,
-                icon: items.elementAt(index).icon,
-                inactiveIcon: items.elementAt(index).inactiveIcon,
-                title: items.elementAt(index).title,
-                onTap: () => onTap(index),
-              );
-            },
-          ),
+            return _BottomBarItemWidget(
+              index: index,
+              key: items.elementAt(index).key,
+              isSelected: index == selectedIndex,
+              activeBackgroundColor: backgroundColor,
+              activeIconColor: activeIconColor,
+              activeTitleColor: activeTitleColor,
+              showActiveBackgroundColor: showActiveBackgroundColor,
+              border: border,
+              inactiveColor: inactiveColor,
+              rightPadding: itemPadding.right,
+              curve: curve,
+              duration: duration,
+              itemPadding: itemPadding,
+              textStyle: textStyle,
+              icon: items.elementAt(index).icon,
+              inactiveIcon: items.elementAt(index).inactiveIcon,
+              title: items.elementAt(index).title,
+              onTap: () => onTap(index),
+              iconSize: iconSize,
+            );
+          },
         ),
       ),
     );
@@ -142,6 +145,7 @@ class _BottomBarItemWidget extends StatelessWidget {
     @required this.textStyle,
     @required this.icon,
     this.inactiveIcon,
+    @required this.iconSize,
     @required this.title,
     @required this.onTap,
   }) : super(key: key);
@@ -163,6 +167,7 @@ class _BottomBarItemWidget extends StatelessWidget {
   final Widget inactiveIcon;
   final Widget title;
   final Function() onTap;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +205,7 @@ class _BottomBarItemWidget extends StatelessWidget {
                   IconTheme(
                     data: IconThemeData(
                       color: Color.lerp(inactiveColor, activeIconColor, value),
-                      size: 24,
+                      size: iconSize,
                     ),
                     child: isSelected ? icon : (inactiveIcon ?? icon),
                   ),

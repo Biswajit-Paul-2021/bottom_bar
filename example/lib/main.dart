@@ -38,12 +38,14 @@ class _HomeState extends State<Home> {
           Container(color: Colors.red),
           Container(color: Colors.greenAccent.shade700),
           Container(color: Colors.orange),
+          Container(color: Colors.blue),
         ],
         onPageChanged: (index) {
           setState(() => _currentPage = index);
         },
       ),
       bottomNavigationBar: BottomBar(
+        iconSize: 22,
         height: kBottomNavigationBarHeight + 30,
         textStyle: TextStyle(fontWeight: FontWeight.bold),
         selectedIndex: _currentPage,
@@ -53,34 +55,29 @@ class _HomeState extends State<Home> {
         },
         items: <BottomBarItem>[
           BottomBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+            icon: Icon(Icons.bubble_chart),
+            title: Text('Dashboard'),
             activeColor: Colors.blue,
-            activeTitleColor: Colors.blue.shade600,
           ),
           BottomBarItem(
-            icon: Icon(Icons.favorite),
-            title: Text('Favorites'),
-            activeColor: Colors.red,
-          ),
-          BottomBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Account'),
-            backgroundColorOpacity: 0.1,
-            activeColor: Colors.greenAccent.shade700,
-          ),
-          BottomBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
-            activeColor: Colors.orange,
-            activeIconColor: Colors.orange.shade600,
-            activeTitleColor: Colors.orange.shade700,
-          ),
-          BottomBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+            icon: Icon(Icons.connect_without_contact),
+            title: Text('Connects'),
             activeColor: Colors.blue,
-            activeTitleColor: Colors.blue.shade600,
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.add_shopping_cart),
+            title: Text('Orders'),
+            activeColor: Colors.blue,
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.supervised_user_circle),
+            title: Text('Doctors'),
+            activeColor: Colors.blue,
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.library_books_sharp),
+            title: Text('Cards'),
+            activeColor: Colors.blue,
           ),
         ],
       ),
